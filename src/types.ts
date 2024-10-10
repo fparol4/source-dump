@@ -16,7 +16,7 @@ export type ReadPagination = {
 }
 
 export type ReadStorage = Storage & {
-    query(range: ReadPagination): Promise<[object]>
+    query(pagination: ReadPagination): Promise<[object]>
 }
 
 export type SourceStreamStorages = {
@@ -52,7 +52,13 @@ export type WorkersManager = {
     getAvailable: () => Promise<Worker | undefined>  
 }
 
-export type WorkerStatus = 'completed' | 'error' | 'end'
+export enum WorkerStatus {
+    'COMPLETED' = 'COMPLETED',
+    'END' = 'END',
+    'FAILED' = 'FAILED',
+    'ERROR' = 'ERROR'
+}
+
 export type WorkerMessage = {
     workeridx: number 
     status: WorkerStatus
@@ -61,6 +67,7 @@ export type WorkerMessage = {
 }
 
 /** ProcessContext */
+//@TODO: wil be removed 
 export type OffsetHistory = WorkerMessage
 
 export type OffsetManagerContext = {

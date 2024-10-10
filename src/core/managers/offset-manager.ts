@@ -24,7 +24,7 @@ export class OffsetManager {
     public async getCurrentOffset(): Promise<number> {
         await this.lockManager.lock()
         const currentOffset = this.offset
-        this.lockManager.unlock()
+        this.lockManager.release()
         return currentOffset
     }
 
@@ -32,7 +32,7 @@ export class OffsetManager {
         await this.lockManager.lock()
         const nextOffset = this.offset + this.chunkSize 
         this.offset = nextOffset
-        this.lockManager.unlock()
+        this.lockManager.release()
         return nextOffset
     } 
 }

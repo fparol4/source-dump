@@ -12,7 +12,7 @@ export class LockManager {
         this.locked = true 
     }
 
-    public async unlock(): Promise<void> {
+    public async release(): Promise<void> {
         this.locked = false
         /** Get the next lock request and releases it */ 
         const resolver = this.queue.shift()
