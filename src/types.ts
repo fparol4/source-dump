@@ -1,4 +1,4 @@
-import { OffsetManager } from "./core/managers/offset-manager"
+import { OffsetManager } from "./core/offset-manager"
 
 /** Storages */
 export type Storage = {

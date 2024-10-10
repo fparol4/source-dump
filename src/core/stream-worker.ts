@@ -1,17 +1,24 @@
-import { v4 as uuidv4 } from 'uuid';
-import { LockManager } from './lock-manager'
-import { WorkerContext, WorkerMessage, WorkerStatus } from '../../types';
-import { logger } from '../../lib/pino';
 
-export class Worker {
+import { logger } from '../lib/pino'
+import { WorkerContext, WorkerMessage, WorkerStatus } from '../types'
+import { LockManager } from './lock-manager'
+
+export class StreamWorker {
     // @TODO: [ ] maybe a OffsetHistory in here?
-    public idx: number = uuidv4()
     private lockManager: LockManager = new LockManager()
+
+    constructor(public idx: number){}
 
     get processing() {
         return this.lockManager.locked
     }
 
+    public async select(): Promise<StreamWorker> {
+        await this.lockManager.lock()
+        return this  
+    }
+
+    // @TODO: context is required - optional only now
     public async notify(status: WorkerStatus, context?: WorkerMessage) {
         logger.debug({ status, context }, 'Will notify')
     }
@@ -26,7 +33,6 @@ export class Worker {
          * [ ] 1. Add context into every notification
          * (opt) [] Add custom error with messages if is necessary
          */
-        await this.lockManager.lock()
         try {
             const queryResult = await context.storages.readStorage.query(context.pagination)
             if (!queryResult.length) return this.notify(WorkerStatus.END) 
@@ -41,9 +47,3 @@ export class Worker {
         }
     }
 }
-
-export class WorkersManager { 
-    private workers: Array<Worker>
-
-    constructor() {}
-}   

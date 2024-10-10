@@ -7,9 +7,9 @@ async function SourceStream(streamContext: SourceStreamContext) {
     logger.debug('Starting stream-process')
     /** Program - [ ]
      * 1. [x] Try to connect into the storages
-     * 2. [ ] Write `offsetManager` & `workersManager`
+     * 2. [x] Write `offsetManager` & `workersManager`
      * 3. [ ] Call stream-process 
-     * 4. [ ] Write the StreamWorker 
+     * 4. [x] Write the StreamWorker 
      * 5. [ ] Handle all possible notifications
      */
     

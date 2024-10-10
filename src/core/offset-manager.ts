@@ -1,4 +1,4 @@
-import { OffsetHistory, OffsetManagerContext } from "../../types"
+import { OffsetHistory, OffsetManagerContext } from "../types"
 import { LockManager } from './lock-manager'
 
 /**
