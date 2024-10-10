@@ -27,9 +27,6 @@ export class StreamWorker {
         /**
          * ! - Its not necessary to compensate anything 
          * ! - In every case we notify with `notify(`error`)` on error
-         * 1. Call readStorage.query(pagination)
-         * 2. Call writeStorage.normalize(chunk)
-         * 3. Call writeStorage.write(chunk)
          * [ ] 1. Add context into every notification
          * (opt) [] Add custom error with messages if is necessary
          */
@@ -42,7 +39,7 @@ export class StreamWorker {
             return this.notify(WorkerStatus.COMPLETED)
         } catch (error) {
             this.notify(WorkerStatus.ERROR)
-        } finally {
+        } finally { // @TODO: Precisa ser solto na notificação de volta
             this.lockManager.release() 
         }
     }

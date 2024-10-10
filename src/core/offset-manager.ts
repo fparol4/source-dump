@@ -6,15 +6,15 @@ import { LockManager } from './lock-manager'
  */
 
 export class OffsetManager {
-    private chunkSize: number
+    private chunksize: number
     private offset: number = 0
     public history: OffsetHistory[] = []
     private lockManager: LockManager = new LockManager() 
 
-    constructor(context: OffsetManagerContext) {
-        this.chunkSize = context.chunkSize
-        this.offset = context.startOffset ?? this.offset 
-        this.history = context.history ?? this.history
+    constructor(chunksize: number, context?: OffsetManagerContext) {
+        this.chunksize = chunksize
+        this.offset = context?.startOffset ?? this.offset 
+        this.history = context?.history ?? this.history
     }
 
     public async addHistory(history: OffsetHistory): Promise<void> {
@@ -30,7 +30,7 @@ export class OffsetManager {
 
     public async getNextOffset(): Promise<number> {
         await this.lockManager.lock()
-        const nextOffset = this.offset + this.chunkSize 
+        const nextOffset = this.offset + this.chunksize 
         this.offset = nextOffset
         this.lockManager.release()
         return nextOffset

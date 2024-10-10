@@ -1,7 +1,7 @@
-import { logger } from './lib/pino'
-import { ProcessContext, SourceStreamContext } from './types';
-import { connectStorages } from './core/connect-storages';
-import { startStreamProcess } from './core/stream-process'
+import { logger } from '../lib/pino'
+import { ProcessContext, SourceStreamContext } from '../types';
+import { connectStorages } from '../core/connect-storages';
+import { startStreamProcess } from '../core/stream-process'
 
 async function SourceStream(streamContext: SourceStreamContext) {
     logger.debug('Starting stream-process')

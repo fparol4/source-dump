@@ -1,6 +1,6 @@
 import { log } from 'console'
 import { cpus } from 'os'
-import { Storages, StreamContext, StreamWorker } from './types'
+import { Storages, StreamContext, StreamWorker } from '../types'
 
 /** SourceStream */
 

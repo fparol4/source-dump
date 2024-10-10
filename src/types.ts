@@ -1,4 +1,5 @@
 import { OffsetManager } from "./core/offset-manager"
+import { StreamWorkerManager } from "./core/stream-worker-manager"
 
 /** Storages */
 export type Storage = {
@@ -47,11 +48,6 @@ export type Worker = {
     start: () => void
 }
 
-export type WorkersManager = {
-    workers: [Worker]
-    getAvailable: () => Promise<Worker | undefined>  
-}
-
 export enum WorkerStatus {
     'COMPLETED' = 'COMPLETED',
     'END' = 'END',
@@ -71,14 +67,8 @@ export type WorkerMessage = {
 export type OffsetHistory = WorkerMessage
 
 export type OffsetManagerContext = {
-    chunkSize: number 
     startOffset?: number 
     history?: OffsetHistory[]
-}
-
-export type ProcessContext = {
-    workersManager: WorkersManager  
-    offsetManager: OffsetManager
 }
 
 /** Application */
